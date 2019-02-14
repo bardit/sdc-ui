@@ -1,77 +1,30 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700');
-
-.heading-1 {
-  font-weight: 300;
-}
-
-.heading-2 {
-  font-weight: 300;
-}
-
-.heading-3-light {
-  font-weight: 300;
-}
-
-.heading-3 {
+@font-face {
+  font-family: 'OpenSans-Regular';
+  font-style: normal;
   font-weight: 400;
+  src:
+    local('Open Sans Regular'),
+    local('OpenSans-Regular'),
+    url(https://fonts.gstatic.com/s/opensans/v15/cJZKeOuBrn4kERxqtaUH3ZBw1xU1rKptJj_0jans920.woff2) format('woff2'),
+    url(http://fonts.gstatic.com/s/opensans/v15/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff)  format('woff');
 }
-
-.heading-3-semibold {
-  font-weight: 600;
-}
-
-.heading-4 {
+@font-face {
+  font-family: 'OpenSans-Italic';
+  font-style: normal;
   font-weight: 400;
+  src:
+    local('Open Sans Italic'),
+    local('OpenSans-Italic'),
+    url(https://fonts.gstatic.com/s/opensans/v15/xjAJXh38I15wypJXxuGMBogp9Q8gbYrhqGlRav_IXfk.woff2) format('woff2'),
+    url(http://fonts.gstatic.com/s/opensans/v15/xjAJXh38I15wypJXxuGMBobN6UDyHWBl620a-IRfuBk.woff) format('woff');
 }
-
-.heading-4-semibold {
-  font-weight: 600;
-}
-
-.heading-5 {
+@font-face {
+  font-family: 'OpenSans-Semibold';
+  font-style: normal;
   font-weight: 400;
-}
-
-.heading-5-semibold {
-  font-weight: 600;
-}
-
-.body-1 {
-  font-weight: 400;
-}
-
-.body-1-semibold {
-  font-weight: 600;
-}
-
-.body-1-light {
-  font-weight: 300;
-}
-
-.body-2 {
-  font-weight: 400;
-}
-
-.body-2-semibold {
-  font-weight: 600;
-}
-
-.body-3 {
-  font-weight: 400;
-}
-
-.body-3-semibold {
-  font-weight: 600;
-}
-
-.body-3-light {
-  font-weight: 300;
-}
-
-.body-4 {
-  font-weight: 400;
-}
-
-.body-4-semibold {
-  font-weight: 600;
+  src:
+    local('Open Sans Semibold'),
+    local('OpenSans-Semibold'),
+    url(https://fonts.gstatic.com/s/opensans/v15/MTP_ySUJH_bn48VBG8sNShampu5_7CjHW5spxoeN3Vs.woff2) format('woff2'),
+    url(http://fonts.gstatic.com/s/opensans/v15/MTP_ySUJH_bn48VBG8sNSnhCUOGz7vYGh680lGh-uXM.woff)   format('woff');
 }

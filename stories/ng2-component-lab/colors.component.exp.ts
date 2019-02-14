@@ -1,48 +1,62 @@
-import {experimentOn} from '@islavi/ng2-component-lab';
+import { experimentOn } from '@islavi/ng2-component-lab';
 
-const primaryColors = {
-    blue: '#009fdb',
-    'dark-blue': '#0568ae',
-    'light-blue': '#71c5e8',
-    green: '#4ca90c',
-    'dark-green': '#007a3e',
-    'light-green': '#b5bd00',
-    orange: '#ea7400',
-    yellow: '#ffb81c',
-    'dark-purple': '#702f8a',
-    purple: '#9063cd',
-    'light-purple': '#caa2dd',
-    black: '#000000',
-    'dark-gray': '#5a5a5a',
-    gray: '#959595',
-    'light-gray': '#d2d2d2',
-    white: '#ffffff'
-};
-
-const secondaryColors = {
-    red: '#cf2a2a',
-    'background-gray': '#f2f2f2',
-    'text-black': '#191919',
-    'link-blue': '#056bae',
-    'functional-green': '#007a3e',
-    'tlv-gray': '#f8f8f8',
-    'tlv-light-gray': '#eaeaea',
-    'tlv-hover': '#e6f6fb',
-};
-
-export default experimentOn('Colors')
-    .case('Colors Palette', {
-        context: {
-            colorsMap: primaryColors,
+const colorMap = [
+        {
+            'darker-blue': '#323943',
+            'dark-blue': '#0568ae',
+            'blue': '#009fdb',
+            'light-blue': '#1eb9f3',
+            'disabled-blue': '#9dd9ef',
+            'lighter-blue': '#e6f6fb',
         },
-        template: `
-            <colors-table [tableTitle]="'Primary Colors'" [tableMapColors]="colorsMap"></colors-table>
-    `
-    }).case('', {
-        context: {
-            colorsMap: secondaryColors,
+        {
+            'green': '#4ca90c',
+            'light-green': '#56972b',
+            'disabled-green': '#a8e083',
         },
-        template: `
-            <colors-table [tableTitle]="'Secondary Colors'" [tableMapColors]="colorsMap"></colors-table>
-    `
-    });
+        {
+            'red': '#cf2a2a',
+            'light-red': '#ed4141',
+            'disabled-red': '#f4adad',
+        },
+        {
+            'yellow': '#ffb81c',
+            'light-yellow': '#dbbe7e',
+            'disabled-yellow': '#aa8432',
+        },
+        {
+            'dark-purple': '#702f8a',
+            'purple': '#9063cd',
+            'light-purple': '#caa2dd',
+        },
+        {
+            'dark-gray': '#5a5a5a',
+            'gray': '#959595',
+            'light-gray': '#d2d2d2',
+        },
+        {
+            'silver': '#eaeaea',
+            'light-silver': '#f2f2f2',
+            'lighter-silver': '#f8f8f8',
+        },
+        {
+            'black': '#000000',
+            'text-black': '#191919',
+            'white': '#ffffff',
+        }
+    ];
+
+export default experimentOn('Colors', 1)
+    .group("Color palette", [
+        {
+            id: 'colorPalette',
+            showSource: true,
+            context: {
+                colorMap
+            },
+            title: 'Color palette',
+            description: 'Supported design colors',
+            template: `<colors-table [tableTitle]="'Colors'" [tableMapColors]="colorMap"></colors-table>`,
+        }
+    ]
+    );

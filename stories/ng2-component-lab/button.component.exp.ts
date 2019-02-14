@@ -1,143 +1,186 @@
-import {experimentOn} from '@islavi/ng2-component-lab';
+import { experimentOn } from '@islavi/ng2-component-lab';
+import { LowerCasePipe } from '@angular/common';
 
-export default experimentOn('Button')
-    .case('Primary Default', {
+const buttonTypes = ['primary', 'secondary', 'link', 'success', 'error', 'warning', 'info'];
+const buttonSizes = ['large', 'medium', 'small', 'x-small', 'default'];
+const experiment = experimentOn('Button');
+
+experiment.group("Default button", [
+    {
+        id: "defaultButton",
         showSource: true,
-        template: `<sdc-button>Button</sdc-button>`,
-    })
-    .case('Primary Default Disabled', {
-        showSource: true,
-        template: `<sdc-button [disabled]="true">Button</sdc-button>`,
-    })
-    .case('White Button', {
-        showSource: true,
+        description: `Default button, does not need to supply type or size.
+        <br>The size of the button set to 'default' so it will shrink or expand according to the content.
+        `,
+        context: {
+            buttonClicked: (): void => {
+                window.alert("OK");
+            }
+        },
+        title: "Default button",
         template: `
-      <sdc-button [color]="'white'">Button</sdc-button>
-    `
-    }).case('White Button Disabled', {
+            <sdc-button
+                text="Default button long text"
+                testId="longButton"
+                (click)="buttonClicked()">
+            </sdc-button>
+            <sdc-button
+                text="Sample button"
+                (click)="buttonClicked()"
+                [testId]="'defaultButtonTestId'"
+               >
+            </sdc-button>
+
+
+            `
+    }
+]);
+
+buttonTypes.forEach((buttonType) => {
+    experiment.group(`${buttonType} button`, [
+    {
+        id: `${buttonType} button`,
         showSource: true,
-        template: `
-      <sdc-button [color]="'white'" [disabled]="true">Button</sdc-button>
-    `
-    }).case('Gray Button', {
+        context: {
+            buttonClicked: (): void => {
+                window.alert("OK");
+            }
+        },
+        title: `Button ${buttonType}`,
+        template: buttonSizes.map((buttonSize) =>
+            `
+            <span style="display: inline-block;">
+            <div>${buttonSize}</div><br>
+            <sdc-button
+                text="Sample"
+                type="${buttonType}"
+                size="${buttonSize}"
+                (click)="buttonClicked()">
+            </sdc-button>
+            </span>
+            `).join('\n')
+    },
+    {
+        id: `${buttonType} button disabled`,
         showSource: true,
-        template: `
-      <sdc-button [color]="'gray'">Button</sdc-button>
-    `
-    }).case('Gray Button Disabled', {
+        context: {
+            buttonClicked: (): void => {
+                window.alert("OK");
+            }
+        },
+        title: `${buttonType} button disabled`,
+        template: buttonSizes.map((buttonSize) =>
+            `
+            <span style="display: inline-block;">
+            <div>${buttonSize}</div><br>
+            <sdc-button
+                text="Sample"
+                type="${buttonType}"
+                size="${buttonSize}"
+                (click)="buttonClicked()"
+                [disabled]="true">
+            </sdc-button>
+            </span>
+            `).join('\n')
+    }
+    ]);
+});
+
+experiment.group("Buttons with icons", [
+    {
+        id: "buttonsWithIcons",
         showSource: true,
+        description: `Buttons with icons forward`,
+        context: {
+            buttonClicked: (): void => {
+                window.alert("OK");
+            }
+        },
+        title: "Button with icons",
         template: `
-      <sdc-button [color]="'gray'" [disabled]="true">Button</sdc-button>
-    `
-    }).case('Positive Button', {
+            <sdc-button
+                text="Default button long text"
+                (click)="buttonClicked()"
+                icon_name="settings-o"
+                icon_position="left"
+               >
+            </sdc-button>
+
+            <sdc-button
+                text="Sample button"
+                (click)="buttonClicked()"
+                icon_name="plus-circle-o"
+                icon_position="left"
+                >
+            </sdc-button>
+
+            <sdc-button
+                text="Sample button"
+                 type="secondary"
+                (click)="buttonClicked()"
+                icon_name="plus-circle"
+                icon_position="right"
+                >
+            </sdc-button>
+
+            <sdc-button
+                text="Sample button"
+                type="secondary"
+                (click)="buttonClicked()"
+                icon_name="caret2-right-circle-o"
+                icon_position="right"
+              >
+            </sdc-button>
+
+           `
+    }
+]);
+
+experiment.group("Buttons with spinners", [
+    {
+        id: "buttonsWithSpinnersRight",
         showSource: true,
+        description: `Click the button to see the spinner shows for 2 seconds`,
+        context: {
+            buttonClicked: (button): void => {
+                button.show_spinner = true;
+                setTimeout(() => {button.show_spinner = false},2000);
+            },
+        },
+        title: "Button with spinner on the right",
         template: `
-      <sdc-button [color]="'positive'">Button</sdc-button>
-    `
-    }).case('Positive Button Disabled', {
+            <sdc-button
+                text="Click to show spinner"
+                (click)="buttonClicked(button)"
+                [show_spinner]="false"
+                spinner_position="right"
+                #button
+               >
+            </sdc-button>
+
+           `
+    },
+    {
+        id: "buttonsWithSpinnersLeft",
         showSource: true,
+        description: `Click the button to see the spinner shows for 2 seconds`,
+        context: {
+            buttonClicked: (button): void => {
+                button.show_spinner = true;
+                setTimeout(() => {button.show_spinner = false},2000);
+            },
+        },
+        title: "Button with spinner on the left",
         template: `
-      <sdc-button [color]="'positive'" [disabled]="true">Button</sdc-button>
-    `
-    }).case('Negative Button', {
-        showSource: true,
-        template: `
-      <sdc-button  [color]="'negative'" >Button</sdc-button>
-    `
-    }).case('Negative Button Disabled', {
-        showSource: true,
-        template: `
-      <sdc-button  [color]="'negative'" [disabled]="true">Button</sdc-button>
-    `
-    }).case('Warning Button', {
-        showSource: true,
-        template: `
-      <sdc-button [color]="'warning'">Button</sdc-button>
-    `
-    }).case('Warning Button Disabled', {
-        showSource: true,
-        template: `
-      <sdc-button [color]="'warning'" [disabled]="true">Button</sdc-button>
-    `
-    }).case('Primary Outline', {
-        showSource: true,
-        template: `
-      <sdc-button [type]="'outline'">Button</sdc-button>
-    `
-    }).case('Primary Outline Disabled', {
-        showSource: true,
-        template: `
-      <sdc-button [type]="'outline'" [disabled]="true">Button</sdc-button>
-    `
-    }).case('Gray Outline', {
-        showSource: true,
-        template: `
-      <sdc-button [type]="'outline'" [color]="'gray'">Button</sdc-button>
-    `
-    }).case('Gray Outline Disabled', {
-        showSource: true,
-        template: `
-      <sdc-button [type]="'outline'" [color]="'gray'" [disabled]="true">Button</sdc-button>
-    `
-    }).case('Positive Outline', {
-        showSource: true,
-        template: `
-      <sdc-button [type]="'outline'" [color]="'positive'">Button</sdc-button>
-    `
-    }).case('Positive Outline Disabled', {
-        showSource: true,
-        template: `
-      <sdc-button [type]="'outline'" [color]="'positive'" [disabled]="true">Button</sdc-button>
-    `
-    }).case('Negative Outline', {
-        showSource: true,
-        template: `
-      <sdc-button [type]="'outline'" [color]="'negative'">Button</sdc-button>
-    `
-    }).case('Negative Outline Disabled', {
-        showSource: true,
-        template: `
-      <sdc-button [type]="'outline'" [color]="'negative'" [disabled]="true">Button</sdc-button>
-    `
-    })
-    .case('Primary Outline Rounded', {
-        showSource: true,
-        template: `
-      <sdc-button [type]="'outline-rounded'">Button</sdc-button>
-    `
-    }).case('Primary Outline Rounded Disabled', {
-        showSource: true,
-        template: `
-      <sdc-button [type]="'outline-rounded'" [disabled]="true">Button</sdc-button>
-    `
-    }).case('Gray Outline Rounded', {
-        showSource: true,
-        template: `
-      <sdc-button [type]="'outline-rounded'" [color]="'grey'">Button</sdc-button>
-    `
-    }).case('Gray Outline Rounded Disabled', {
-        showSource: true,
-        template: `
-      <sdc-button [type]="'outline-rounded'" [color]="'grey'" [disabled]="true">Button</sdc-button>
-    `
-    }).case('Positive Outline Rounded', {
-        showSource: true,
-        template: `
-      <sdc-button [type]="'outline-rounded'" [color]="'positive'">Button</sdc-button>
-    `
-    }).case('Positive Outline Rounded Disabled', {
-        showSource: true,
-        template: `
-      <sdc-button [type]="'outline-rounded'" [color]="'positive'" [disabled]="true">Button</sdc-button>
-    `
-    }).case('Negative Outline Rounded', {
-        showSource: true,
-        template: `
-      <sdc-button [type]="'outline-rounded'" [color]="'negative'">Button</sdc-button>
-    `
-    }).case('Negative Outline Rounded Disabled', {
-        showSource: true,
-        template: `
-      <sdc-button [type]="'outline-rounded'" [color]="'negative'" [disabled]="true">Button</sdc-button>
-    `
-    })
+            <sdc-button
+                text="Click to show spinner"
+                (click)="buttonClicked(button)"
+                spinner_position="left"
+                #button
+               >
+            </sdc-button>
+
+           `
+    }
+]);
+export default experiment;

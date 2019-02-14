@@ -1,5 +1,5 @@
 @import 'typography.scss';
-@import '../scss/style.scss';
+@import '../src/style/scss/style.scss';
 @import '~prismjs/themes/prism.css';
 
 body {
@@ -19,7 +19,7 @@ a {
 	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
+	justify-content: flex-start;
 	font-size: 13px;
 	.color-section {
 		display: flex;
@@ -28,11 +28,13 @@ a {
 		min-width: 150px;
 		div {
 			align-self: center;
+			user-select: text;
 		}
 		$circle-size: 40px;
 		.color-circle {
 			height: $circle-size;
 			width: $circle-size;
+			border-radius: $circle-size;
 			padding: 10px;
 			text-align: center;
 		}
@@ -40,23 +42,20 @@ a {
 }
 
 .icons-screen {
-  	.missing-icon-section {
-	  border-top: 1px solid $light-gray;
-	  padding-top: 10px;
+	width: 1190px;
+	.missing-icon-section {
+		border-top: 1px solid $light-gray;
+		padding-top: 10px;
 	}
 	.icons-option-selector {
 		margin-top: 20px;
 		margin-bottom: 20px;
-		width: 100%;
 		display: flex;
-		justify-content: flex-start;
 		.option-container {
 			display: flex;
 			flex-direction: column;
+			flex-basis: 100%;
 			margin-right: 20px;
-			input {
-				height: 1px;
-			}
 		}
 	}
 
@@ -66,15 +65,16 @@ a {
 		display: flex;
 		flex-wrap: wrap;
 		border-top: 1px solid $light-gray;
-		justify-content: space-between;
+		justify-content: flex-start;
 		.icon-section {
 			display: flex;
 			flex-direction: column;
-			margin: 10px 0;
+			margin: 10px;
 			min-width: 150px;
 			.svg-icon-wrapper {
 				cursor: pointer;
 				width: 20px;
+				height: 42px;
 				margin-left: auto;
 				margin-right: auto;
 				.svg-icon-label {
@@ -96,9 +96,16 @@ a {
 	}
 }
 
+.sdc-popup-menu {
+	@include box-shadow(0 1px 3px 0 rgba(0, 0, 0, 0.2));
+	width: 200px;
+	height: 200px;
+	border: 1px solid $light-gray;
+}
+
 .typography-screen {
 	.typography-section {
-		margin: 30px 0;
+		margin: 20px 0;
 	}
 	ul {
 		font-size: 18px;
@@ -106,18 +113,68 @@ a {
 	.typo-table {
 		.typo-section {
 			div {
-			display: inline-block;
-			//border: 1px solid black;
-			width: 30%;
-			margin: 4px 0;
+				display: inline-block;
+				//border: 1px solid black;
+				width: 30%;
+				margin: 4px 0;
+			}
+			.sample-text {
+				white-space: nowrap;
+
 			}
 		}
+	}
+	.heading-1 {
+		@include heading-1;
+	}
+	.heading-2 {
+		@include heading-2;
+	}
+	.heading-3 {
+		@include heading-3;
+	}
+	.heading-4 {
+		@include heading-4;
+	}
+	.heading-4-emphasis {
+		@include heading-4-emphasis;
+	}
+	.heading-5 {
+		@include heading-5;
+	}
+
+	.body-1 {
+		@include body-1;
+	}
+
+	.body-1-italic {
+		@include body-1-italic;
+	}
+
+	.body-2 {
+		@include body-2;
+	}
+
+	.body-2-emphasis {
+		@include body-2-emphasis;
+	}
+
+	.body-3 {
+		@include body-3;
+	}
+
+	.body-3-emphasis {
+		@include body-3-emphasis;
+	}
+
+	.body-4 {
+		@include body-4;
 	}
 }
 
 .source-toggle-wrapper {
 	.source-toggle-title {
-	@extend .heading-2;
+		@include heading-2;
 	}
 	.source-toggle {
 		display: flex;
@@ -131,8 +188,9 @@ a {
 			flex-shrink: 0;
 		}
 		.source-toggle-code {
-			background-color: $background-gray;
+			background-color: $light-silver;
 			padding: 5px;
+			margin-left: 30px;
 			pre {
 				margin-top: 0;
 				user-select: text;
@@ -156,7 +214,8 @@ a {
 				display: flex;
 				margin-bottom: 10px;
 				.source-toggle-tab {
-					@extend .body-1-semibold;
+					@include body-1;
+					@include base-font-semibold;
 					margin-right: 20px;
 					cursor: pointer;
 					&.selected {

@@ -1,181 +1,232 @@
-@mixin default-button($primary, $hover, $active, $active-border, $border: $active, $hover-border: $border, $text: $white) {
-  color: $text;
-  border-color: $border;
-  background-color: $primary;
-
-  &:not([disabled]) {
-    &:hover, &:focus {
-      border-color: $hover-border;
-      background-color: $hover;
-    }
-    &:active {
-      border-color: $active-border;
-      background-color: $active;
-    }
-  }
-}
-
-@mixin outline-button($color) {
-  background-color: transparent;
-  color: $color;
-  border-color: $color;
-
-  &:not([disabled]) {
-    &:hover, &:focus { background-color: rgba($color, 0.1); }
-    &:active { background-color: rgba($color, 0.3); }
-  }
-}
-
-@mixin link-button($primary-color, $secondary-color) {
-  color: $primary-color;
-  fill: $primary-color;
-
-  &:not([disabled]):hover, &:active, &:focus {
-    color: $secondary-color;
-    fill: $secondary-color;
-  }
-}
-
 .sdc-button {
+  order:1;
+  @include box-sizing;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
   outline: none;
   border-radius: 2px;
-  border: solid 1px;
-
+  padding: 0 12px;
+  height: 36px;
+  line-height: 36px;
+  width: 120px;
+  min-width: 90px;
   cursor: pointer;
   text-align: center;
-
-  @extend .body-1-semibold;
-
-  &:not(.sdc-button-link) {
-    width: 94px;
-    height: 30px;
-  }
+  text-transform: uppercase;
+  @include body-1;
 
   &:disabled {
-    opacity: 0.3;
     cursor: default;
   }
 
-  // Default type
-  &.sdc-button-default {
+  // Primary button
+  &.sdc-button__primary {
+    border: 1px solid transparent;
+    background-color: $blue;
+    color: $white;
 
-    // Primary default button
-    &.sdc-button__primary {
-      $primary:       $blue;
-      $hover:         $dodger-blue;
-      $active:        $pacific-blue;
-      $active-border: $orient;
-      @include default-button($primary, $hover, $active, $active-border);
+    &:not(:disabled) {
+      &:hover, &:active {
+        background-color: $light-blue;
+      }
+      &:focus:not(:active) {
+        border: 1px solid $white;
+        background-color: $light-blue;
+        box-shadow: 0px 0px 0px 1px $light-blue;
+      }
     }
 
-    // White default button
-    &.sdc-button__white {
-      $primary:       $white;
-      $border:        $light-gray;
-      $hover:         $primary;
-      $hover-border:  $gray;
-      $active:        $background-gray;
-      $active-border: $dark-gray;
-      $text:          $dark-gray;
-      @include default-button($primary, $hover, $active, $active-border, $border, $hover-border, $text);
+    &:disabled{
+      background: $disabled-blue;
     }
-
-    // Gray default button
-    &.sdc-button__gray {
-      $primary:       $tlv-gray;
-      $border:        $light-gray;
-      $hover:         $primary;
-      $hover-border:  $gray;
-      $active:        $border;
-      $active-border: $dark-gray;
-      $text:          $text-black;
-      @include default-button($primary, $hover, $active, $active-border, $border, $hover-border, $text);
-    }
-
-    // Positive default button
-    &.sdc-button__positive {
-      $primary:       $green;
-      $hover:         $lima;
-      $active:        $limeade;
-      $active-border: $japanese-laurel;
-      @include default-button($primary, $hover, $active, $active-border);
-    }
-
-    // Negative default button
-    &.sdc-button__negative {
-      $primary:       $red;
-      $hover:         $torch-red;
-      $active:        $red-oxide;
-      $active-border: $tamarillo;
-      @include default-button($primary, $hover, $active, $active-border);
-    }
-
-    // Warning default button
-    &.sdc-button__warning {
-      $primary:       $yellow;
-      $hover:         $gold;
-      $active:        $buttercup;
-      $active-border: $pirate-gold;
-      @include default-button($primary, $hover, $active, $active-border);
-    }
-
-  } // End default type
-
-  // Outline rounded type
-  &.sdc-button-outline-rounded {
-    border-radius: 30px;
   }
 
-  // Outline types
-  &.sdc-button-outline, &.sdc-button-outline-rounded {
-
-    // Primary outline button
-    &.sdc-button__primary {
-      @include outline-button($blue);
-    }
-
-    // Dark gray outline button
-    &.sdc-button__dark-gray {
-      @include outline-button($dark-gray);
-    }
-
-    // Gray outline button
-    &.sdc-button__gray {
-      @include outline-button($gray);
-    }
-
-    // Positive outline button
-    &.sdc-button__positive {
-      @include outline-button($green);
-    }
-
-    // Negative outline button
-    &.sdc-button__negative {
-      @include outline-button($red);
-    }
-
-    // Warning outline button
-    &.sdc-button__warning {
-      @include outline-button($yellow);
-    }
-
-  } // End of outline type
-
-  // Link type
-  &.sdc-button-link {
-    border: none;
+  // Secondary button
+  &.sdc-button__secondary {
+    border: 1px solid $blue;
     background-color: transparent;
-    @extend .body-1;
+    color: $blue;
 
-    // Primary link button
-    &.sdc-button__primary {
-      @include link-button($blue, $dark-blue);
+    &:not(:disabled) {
+      &:hover, &:active {
+        background-color: $light-blue;
+        color:$white;
+      }
+      &:focus:not(:active) {
+        color: $light-blue;
+        box-shadow: inset 0px 0px 0px 0px $dark-blue, 0px 0px 0px 1px $blue;
+        &:hover {
+          color: $white;
+        }
+      }
     }
 
-    // Secondary link button
-    &.sdc-button__secondary {
-      @include link-button($gray, $dark-gray);
+    &:disabled {
+      color: $disabled-blue;
+      border-color: $disabled-blue;
+    }
+  }
+
+  // Link button
+  &.sdc-button__link {
+    background-color: transparent;
+    color: $blue;
+    fill: $blue;
+    border: none;
+
+    &:not(:disabled) {
+      &:hover, &:active {
+        color: $light-blue;
+      }
+      &:focus:not(:active) {
+        border: 1px solid $dark-blue;
+        color: $light-blue;
+      }
     }
 
-  } // End of link type
+    &:disabled{
+      color: $disabled-blue;
+    }
+  }
+
+  // success
+  &.sdc-button__success {
+    border: 1px solid transparent;
+    background-color: $green;
+    color: $white;
+
+    &:not(:disabled) {
+      &:hover, &:active {
+        background-color: $light-green;
+      }
+      &:focus:not(:active) {
+        border: 1px solid $white;
+        background-color: $light-green;
+        box-shadow: 0px 0px 0px 1px $light-green;
+      }
+    }
+
+    &:disabled{
+      background: $disabled-green;
+    }
+  }
+
+  // error
+  &.sdc-button__error, &.sdc-button__alert {
+    border: 1px solid transparent;
+    background-color: $red;
+    color: $white;
+
+    &:not(:disabled) {
+      &:hover, &:active {
+        background-color: $light-red;
+      }
+      &:focus:not(:active) {
+        border: 1px solid $white;
+        background-color: $light-red;
+        box-shadow: 0px 0px 0px 1px $light-red;
+      }
+    }
+
+    &:disabled{
+      background: $disabled-red;
+    }
+  }
+
+  // warning
+  &.sdc-button__warning {
+    border: 1px solid transparent;
+    background-color: $yellow;
+    color: $white;
+
+    &:not(:disabled) {
+      &:hover, &:active {
+        background-color: $light-yellow;
+      }
+      &:focus:not(:active) {
+        border: 1px solid $white;
+        background-color: $light-yellow;
+        box-shadow: 0px 0px 0px 1px $light-yellow;
+      }
+    }
+
+    &:disabled{
+      background: $disabled-yellow;
+    }
+  }
+
+  // info
+  &.sdc-button__info {
+    border: 1px solid transparent;
+    background-color: $blue;
+    color: $white;
+
+    &:not(:disabled) {
+      &:hover, &:active {
+        background-color: $light-blue;
+      }
+      &:focus:not(:active) {
+        border: 1px solid $white;
+        background-color: $light-blue;
+        box-shadow: 0px 0px 0px 1px $light-blue;
+      }
+    }
+
+    &:disabled{
+      background: $disabled-blue;
+    }
+  }
+
+  /*** Sizes ***/
+  &.btn-large{
+    width: $btn-large;
+  }
+
+  &.btn-medium{
+    width: $btn-medium;
+  }
+
+  &.btn-small{
+    width: $btn-small;
+  }
+
+  &.btn-x-small{
+    width: $btn-extra-small;
+  }
+
+  &.btn-default{
+    width: $btn-default;
+  }
+
+  /*** Buttons with icons ***/
+  &.sdc-icon-right {
+    flex-direction: row-reverse;
+    .svg-icon {
+      margin-left: 15px;
+    }
+  }
+
+  &.sdc-icon-left {
+    flex-direction: row;
+    .svg-icon {
+      margin-right: 15px;
+    }
+  }
+
+  svg {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+.sdc-button__wrapper {
+  display: inline-flex;
+}
+.sdc-button__spinner {
+  padding-top: 6px;
+  margin:0 2px;
+  &.left {
+    order:2;
+  }
 }
